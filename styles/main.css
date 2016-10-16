@@ -205,6 +205,8 @@ input[type="radio" i], input[type="checkbox" i] {
    height: 3em;
    position: absolute;
    margin: 1.5em 0 0 1.5em;
+   border: 2px solid green;
+   border-radius: 50%;
 }
 
 #questions-adder:before, #questions-adder:after {
