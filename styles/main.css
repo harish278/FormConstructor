@@ -229,3 +229,7 @@ input[type="radio" i], input[type="checkbox" i] {
   margin-top: -15%;
   width: 100%;
 }
+
+.radio-icon, .checbox-icon {
+    padding: 0 1em;
+}
