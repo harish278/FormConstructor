@@ -8,6 +8,7 @@ angular.module('formapp').directive("questionsAdder", [function () {
                 this.options = ["option1"];
             };
             var question = {
+                "questionText": "Untitled question",
                 "selection": "multipleChoice",
                 "optionsList": new options()
             };

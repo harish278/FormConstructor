@@ -45,61 +45,64 @@ angular.module('formapp').controller("MainController", ['$scope', function ($sco
         'time': timeOption
     }
 
-
-	$scope.questionsArray = [];
-	$scope.questionsArray[0] = {
+    $scope.questionData = {
+        "heading": "Untitled form",
+        "description": "Form description"
+    }
+	$scope.questionData.questionsArray = [];
+	$scope.questionData.questionsArray[0] = {
+        "questionText": "Untitled question",
 		"selection": "multipleChoice",
         "optionsList": new options()
 	};
 
 	$scope.addQuestions = function (question) {
-        if ($scope.questionsArray) 
-        {
-            $scope.questionsArray.push(question);
+        if ($scope.questionData.questionsArray) {
+            $scope.questionData.questionsArray.push(question);
         }
     };
 
     $scope.addOptions = function (index, question) {
-        var questionIndex = $scope.questionsArray.indexOf(question);
-        var optionsArray = $scope.questionsArray[questionIndex].optionsList.options
+        var questionIndex = $scope.questionData.questionsArray.indexOf(question);
+        var optionsArray = $scope.questionData.questionsArray[questionIndex].optionsList.options
         optionsArray.push("option"+(optionsArray.length + 1));
     }
 
     $scope.addRowOptions = function (index, question) {
-        var questionIndex = $scope.questionsArray.indexOf(question);
-        var rowOptionsArray = $scope.questionsArray[questionIndex].optionsList.rowOptions;
+        var questionIndex = $scope.questionData.questionsArray.indexOf(question);
+        var rowOptionsArray = $scope.questionData.questionsArray[questionIndex].optionsList.rowOptions;
         rowOptionsArray.push("option"+(rowOptionsArray.length+1));
     }
 
     $scope.addColOptions = function (index, question) {
-        var questionIndex = $scope.questionsArray.indexOf(question);
-        var colOptionsArray = $scope.questionsArray[questionIndex].optionsList.colOptions;
+        var questionIndex = $scope.questionData.questionsArray.indexOf(question);
+        var colOptionsArray = $scope.questionData.questionsArray[questionIndex].optionsList.colOptions;
         colOptionsArray.push("option"+(colOptionsArray.length+1));
     }
 
     $scope.removeOptions = function (index, question) {
-        var questionIndex = $scope.questionsArray.indexOf(question);
-        $scope.questionsArray[questionIndex].optionsList.options.splice(index, 1);
+        var questionIndex = $scope.questionData.questionsArray.indexOf(question);
+        $scope.questionData.questionsArray[questionIndex].optionsList.options.splice(index, 1);
     }
 
     $scope.removeRowOptions = function (index, question) {
-        var questionIndex = $scope.questionsArray.indexOf(question);
-        $scope.questionsArray[questionIndex].gridRowOptions.splice(index, 1);
+        var questionIndex = $scope.questionData.questionsArray.indexOf(question);
+        console.log(questionIndex);
+        $scope.questionData.questionsArray[questionIndex].optionsList.rowOptions.splice(index, 1);
     }
 
     $scope.removeColOptions = function (index, question) {
-        var questionIndex = $scope.questionsArray.indexOf(question);
-        $scope.questionsArray[questionIndex].gridColOptions.splice(index, 1);
+        var questionIndex = $scope.questionData.questionsArray.indexOf(question);
+        $scope.questionData.questionsArray[questionIndex].optionsList.colOptions.splice(index, 1);
     }
 
     $scope.formSubmit = function () {
-        console.log($scope.myForm);
-        console.log($scope.questionsArray);
+        console.log($scope.questionData);
     }
 
     $scope.switchOptionsList = function (index) {
-        if (!($scope.questionsArray[index].optionsList instanceof mapOptionsList[$scope.questionsArray[index].selection])) {
-            $scope.questionsArray[index].optionsList = new mapOptionsList[$scope.questionsArray[index].selection]();
+        if (!($scope.questionData.questionsArray[index].optionsList instanceof mapOptionsList[$scope.questionData.questionsArray[index].selection])) {
+            $scope.questionData.questionsArray[index].optionsList = new mapOptionsList[$scope.questionData.questionsArray[index].selection]();
         }
     }
 }]);
