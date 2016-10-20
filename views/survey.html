@@ -1,0 +1,110 @@
+<div id="surveypage">
+    <div class="wrapper">
+        <form name="surveyData.surveyId" ng-submit="surveySubmit($event)">
+            <div class="heading-container">
+                <h2>{{surveyData.heading}}</h2>
+            </div>
+            <div class="line"></div>
+            <div ng-repeat="question in surveyData.questionsArray track by $index" | orderBy : 'position'>
+                <div class="all-questions-container">
+                    <div>
+                        <div class="question-title">
+                            <div class="question-heading-container">
+                                <h3>{{question.questionText}}</h3>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                        <div class="animate-switch-container" ng-switch="question.selection">
+                            <div class="animate-switch" ng-switch-when="shortanswer">
+                                <div class="question-title">
+                                    <div class="question-heading-container">
+                                        <div class="options">
+                                            <label>
+                                                <input type="text" placeholder="Short answer text" />
+                                            </label>
+                                        </div>
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="paragraph">
+                                <div class="question-title">
+                                    <div class="question-heading-container">
+                                        <div class="options">
+                                            <label>
+                                                <input  type="text" placeholder="Long answer text" />
+                                            </label>
+                                        </div>
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="checkboxes">
+                                <div class="question-container">
+                                    <div ng-repeat="option in question.optionsList.options track by $index">
+                                        <div class="options">
+                                            <input type="checkbox" />
+                                            <label>{{question.optionsList.options[$index]}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="dropboxes">
+                                <div class="question-container">
+                                    <div ng-repeat="option in question.optionsList.options track by $index">
+                                        <div class="options">
+                                            <select ng-options="item as item for item in question.optionsList.options"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="linearScale">
+                                <div class="question-container">
+                                    <div class="linear-scale">
+                                        <div ng-repeat="option in question.optionsList.options track by $index">
+	                                        <input type="checkbox" value="{{question.optionsList.options[$index]}}" />
+	                                        <label>{{question.optionsList.options[$index]}}</label>
+	                                    </div>
+                                    </div>
+                                    <div class="options linear-label lowerlimit">
+                                        {{question.optionsList.lowerLimit.label}}
+                                    </div>
+                                    <div class="options linear-label upperlimit">
+                                        {{question.optionsList.upperLimit.label}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="date">
+                                <div class="options">
+                                    <label>
+                                        <input type="date" ng-model="question.optionsList.date" />
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="time">
+                                <div class="options">
+                                    <label>
+                                        <input type="time" ng-model="question.optionsList.time" />
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="multipleChoice">
+                                <div class="question-container">
+                                    <div ng-repeat="option in question.optionsList.options track by $index">
+                                        <div class="options">
+                                            <input type="radio" value="{{question.optionsList.options[$index]}}" />
+                                            <label>{{question.optionsList.options[$index]}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>

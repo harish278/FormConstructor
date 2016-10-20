@@ -6,8 +6,15 @@ app.config(function ($routeProvider) {
     templateUrl: 'views/home.html',
     controller: 'MainController'
   })
+  .when('/newform', {
+    templateUrl: 'views/newform.html',
+    controller: 'FormController'
+  })
+  .when('/survey/:id', {
+    templateUrl: 'views/survey.html',
+    controller: 'SurveyController'
+  })
   .otherwise({
-    controller: '',
     templateUrl: '404.html'
   });
 });

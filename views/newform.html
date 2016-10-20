@@ -1,0 +1,183 @@
+<div id="formpage">
+    <div class="wrapper">
+        <form name="myForm" ng-submit="formSubmit()">
+            <div tabindex="0">
+                <div class="heading-container">
+                    <textarea ng-model="questionData.heading" class="heading"></textarea>
+                </div>
+                <div class="line"></div>
+                <div class="description-container">
+                    <textarea ng-model="questionData.description" class="description" placeholder="Form description"></textarea>
+                </div>
+                <div class="line"></div>
+            </div>
+            <div>
+                <ng-form name="form-{{$index}}" class="questions" ng-repeat="question in questionData.questionsArray track by $index" select-active>
+                    <div class="all-questions-container">
+                        <div>
+                            <div class="question-title">
+                                <div class="question-heading-container" >
+                                    <textarea ng-model="question.questionText"class="question-heading">Untitled Question</textarea>
+                                    <div class="line"></div>
+                                </div>
+                            </div>
+                            <div class="dropdown-container">
+                                <select class="question-type-selector" ng-model="question.selection" ng-change="switchOptionsList($index)">
+                                    <option value="shortanswer">Short answer</option>
+                                    <option value="paragraph">Paragraph</option>
+                                    <option value="multipleChoice">Multiple choice</option>
+                                    <option value="checkboxes">Checkboxes</option>
+                                    <option value="dropboxes">Dropboxes</option>
+                                    <option value="linearScale">Linear Scale</option>
+                                    <!-- <option value="multipleChoiceGrid">Multiple Choice Grid</option> -->
+                                    <option value="date">Date</option>
+                                    <option value="time">Time</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="animate-switch-container" ng-switch on="question.selection">
+                            <div class="animate-switch" ng-switch-when="shortanswer">
+                                <div class="question-title">
+                                    <div class="question-heading-container" >
+                                        <div class="options">
+                                            <label>
+                                                <input ng-model="question.optionsList.paragraph" type="text" placeholder="Short answer text"/>
+                                            </label>
+                                        </div>
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="paragraph">
+                                <div class="question-title">
+                                    <div class="question-heading-container" >
+                                        <div class="options">
+                                            <label>
+                                                <input ng-model="question.optionsList.paragraph" type="text" placeholder="Long answer text"/>
+                                            </label>
+                                        </div>
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="checkboxes">
+                                <div class="question-container">
+                                    <div ng-repeat="option in question.optionsList.options track by $index">
+                                        <div class="options">
+                                            <span class="checbox-icon">&#9634;</span><input ng-model="question.optionsList.options[$index]" type="text" value="option {{$index+1}}"/><span ng-click="removeOptions($index, question)" class="cross">X</span>
+                                        </div>
+                                    </div>
+                                    <div class="options">
+                                        <span class="add-option" role="button" ng-click="addOptions($index, question)">Add option</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="animate-switch" ng-switch-when="multipleChoiceGrid">
+                                <div class="question-container">
+                                    <div class="options-container">
+                                        <div class="row-options-container">
+                                            <ol class="options-list">
+                                                <div ng-repeat="rowOption in question.optionsList.rowOptions track by $index">
+                                                    <li class="row-options">Row {{$index+1}} <input name="mc_row_options" ng-model="question.optionsList.rowOptions[$index]" class="dropdown-input" type="text" placeholder="Row {{$index+1}}"/><span ng-click="removeRowOptions($index, question)" class="cross">X</span></li>
+                                                </div>
+                                            </ol>
+                                            Row {{question.optionsList.rowOptions.length+1}} <span class="add-option" role="button" ng-click="addRowOptions($index, question)">Add option</span>
+                                        </div>
+                                        <div class="column-options-container">
+                                            <ol class="options-list">
+                                                <div ng-repeat="colOption in question.optionsList.colOptions track by $index">
+                                                    <li class="row-options">column {{$index+1}} <input ng-model="question.optionsList.colOptions[$index]" name="mc_row_options" class="dropdown-input" type="text" placeholder="Column {{$index+1}}"/><span ng-click="removeColOptions($index, question)" class="cross">X</span></li>
+                                                </div>
+                                            </ol>
+                                            Column {{question.optionsList.colOptions.length+1}} <span class="add-option" role="button" ng-click="addColOptions($index, question)">Add option</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="animate-switch" ng-switch-when="dropboxes">
+                                <div class="question-container">
+                                    <ol>
+                                        <div ng-repeat="option in question.optionsList.options track by $index">
+                                            <li><div class="options"><input ng-model="question.optionsList.options[$index]" name="dropboxes" class="dropdown-input" type="text" value="option {{$index+1}}"/><span ng-click="removeOptions($index, question)" class="cross">X</span></div></li>
+                                        </div>
+                                    </ol>
+                                    <div class="options">
+                                        <span class="add-option" role="button" ng-click="addOptions($index, question)">Add option</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="linearScale">
+                                <div class="question-container">
+                                    <div class="linear-scale">
+                                        <div class="linear-scale-option">
+                                            <select ng-options="item as item for item in [0, 1]" ng-model="question.optionsList.lowerLimit.value"></select>
+                                        </div> to
+                                        <div class="linear-scale-option">
+                                            <select ng-options="item as item for item in [2, 3, 4, 5, 6, 7, 8, 9, 10]" ng-model="question.optionsList.upperLimit.value"></select>
+                                        </div>
+                                    </div>
+                                    <div class="options linear-label">
+                                        {{question.optionsList.lowerLimit.value}} <input ng-model="question.optionsList.lowerLimit.label" type="text" value="Label"/>
+                                        <div class="line"></div>
+                                    </div>
+                                    <div class="options linear-label">
+                                        {{question.optionsList.upperLimit.value}} <input ng-model="question.optionsList.upperLimit.label" type="text" value="Label"/>
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="date">
+                                <div class="options">
+                                    <div class="date-container">
+                                        <label>
+                                            start date:
+                                            <input class="date" type="text" ng-model="question.optionsList.dateStartRange" date-picker/>
+                                        </label>
+                                    </div>
+                                    <div class="date-container">
+                                        <label>
+                                            end date:
+                                            <input class="date" type="text" ng-model="question.optionsList.dateEndRange" date-picker/>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="time">
+                                <div class="options">
+                                    <div class="date-container">
+                                        <label>
+                                            start time:
+                                            <input class="time" type="text" ng-model="question.optionsList.rangeStart" time-picker/>
+                                        </label>
+                                    </div>
+                                    <div class="date-container">
+                                        <label>
+                                            end time:
+                                            <input class="time" type="text" ng-model="question.optionsList.rangeEnd" time-picker/>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-default>
+                                <div class="question-container">
+                                    <div ng-repeat="option in question.optionsList.options track by $index">
+                                        <div class="options">
+                                            <span class="radio-icon">&#9673;</span><input ng-model="question.optionsList.options[$index]" name="multipleChoice-{{$index}}" type="text" value="{{option}}"/><span ng-click="removeOptions($index, question)" class="cross">X</span>
+                                        </div>
+                                    </div>
+                                    <div class="options">
+                                        <span class="add-option" role="button" ng-click="addOptions($index, question)">Add option</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="questions-adder" class="questions-adder active" questions-adder> <i class="fa fa-plus-circle fa-3x" style="color:grey; line-height: 1.5em;"></i>
+                    </div>
+                </ng-form>
+                <input type="submit" id="submit" value="save">
+            </div>
+        </form>
+    </div>
+</div>

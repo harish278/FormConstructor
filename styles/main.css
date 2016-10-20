@@ -7,7 +7,7 @@ body {
 	width: 100%;
 }
 
-#mainpage {
+#formpage {
 	padding: 2em;
 	width: 80%;
 	margin: 0 auto;
@@ -211,4 +211,48 @@ input[type="radio" i], input[type="checkbox" i] {
 
 .radio-icon, .checbox-icon {
     padding: 0 1em;
+}
+
+.date-container {
+    padding: 5px 0;
+}
+
+.date, .time {
+    border: 1px solid grey !important;
+    border-radius: 2px;
+}
+
+.forms-list-element-button {
+    display: inline-block;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+    background: #eee;
+    line-height: 10px;
+    float: right;
+    cursor: pointer;
+}
+
+.forms-list-element {
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.forms-list-container li {
+    list-style: none;
+    padding: 10px;
+}
+
+#new-survey {
+    text-align: center;
+    background: #286090;
+    cursor: pointer;
+    list-style: none;
+    padding: 10px;
+    color: #fff;
+}
+
+.new-survey {
+    list-style: none;
 }
