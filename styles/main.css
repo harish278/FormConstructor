@@ -62,10 +62,6 @@ textarea:focus {
     display: block;
 }
 
-.questions {
-    
-}
-
 .question-heading {
     line-height: 1em;
     height: 1.2em;
@@ -217,7 +213,7 @@ input[type="radio" i], input[type="checkbox" i] {
     padding: 5px 0;
 }
 
-.date, .time {
+.date, .time, .survey-date, .survey-time {
     border: 1px solid grey !important;
     border-radius: 2px;
 }
@@ -255,4 +251,30 @@ input[type="radio" i], input[type="checkbox" i] {
 
 .new-survey {
     list-style: none;
+}
+
+.linear-scale-input-container {
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+}
+
+.linear-scale-input {
+    display: block;
+}
+
+.survey-question-heading-container {
+    display: inline-block;
+    padding: 0 1em;
+}
+
+.survey-text-area {
+    width: 100%;
+    height: 3em;
+    border: 1px solid rgb(169, 169, 169);
+    border-radius: 5px;
+}
+
+.check-box-input {
+    
 }

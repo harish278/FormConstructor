@@ -4,14 +4,12 @@
             <div class="heading-container">
                 <h2>{{surveyData.heading}}</h2>
             </div>
-            <div class="line"></div>
-            <div ng-repeat="question in surveyData.questionsArray track by $index" | orderBy : 'position'>
+            <div ng-repeat="question in surveyData.questionsArray track by $index">
                 <div class="all-questions-container">
                     <div>
                         <div class="question-title">
-                            <div class="question-heading-container">
+                            <div class="survey-question-heading-container">
                                 <h3>{{question.questionText}}</h3>
-                                <div class="line"></div>
                             </div>
                         </div>
                         <div class="animate-switch-container" ng-switch="question.selection">
@@ -20,22 +18,10 @@
                                     <div class="question-heading-container">
                                         <div class="options">
                                             <label>
-                                                <input type="text" placeholder="Short answer text" />
+                                                <textarea class="survey-text-area" placeholder="answer in {{question.minimumCharLimit}} to {{question.maximumCharLimit}} characters" maxlength="{{question.maximumCharLimit}}" minlength="{{question.minimumCharLimit}}" ng-model="question.answer" ng-required="{{question.isRequired}}">
+                                                </textarea>
                                             </label>
                                         </div>
-                                        <div class="line"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="animate-switch" ng-switch-when="paragraph">
-                                <div class="question-title">
-                                    <div class="question-heading-container">
-                                        <div class="options">
-                                            <label>
-                                                <input  type="text" placeholder="Long answer text" />
-                                            </label>
-                                        </div>
-                                        <div class="line"></div>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +29,7 @@
                                 <div class="question-container">
                                     <div ng-repeat="option in question.optionsList.options track by $index">
                                         <div class="options">
-                                            <input type="checkbox" />
+                                            <input type="checkbox" value="{{question.optionsList.options[$index]}}" name="{{question._id}}" ng-model="question.answer[question.optionsList.options[$index]]"/>
                                             <label>{{question.optionsList.options[$index]}}</label>
                                         </div>
                                     </div>
@@ -51,40 +37,35 @@
                             </div>
                             <div class="animate-switch" ng-switch-when="dropboxes">
                                 <div class="question-container">
-                                    <div ng-repeat="option in question.optionsList.options track by $index">
-                                        <div class="options">
-                                            <select ng-options="item as item for item in question.optionsList.options"></select>
-                                        </div>
+                                    <div class="options">
+                                        <select ng-model="question.answer">
+                                            <option ng-repeat="option in question.optionsList.options track by $index" value="{{option}}" ng-required="{{question.isRequired}}" name="{{question._id}}">{{option}}</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="animate-switch" ng-switch-when="linearScale">
                                 <div class="question-container">
                                     <div class="linear-scale">
-                                        <div ng-repeat="option in question.optionsList.options track by $index">
-	                                        <input type="checkbox" value="{{question.optionsList.options[$index]}}" />
-	                                        <label>{{question.optionsList.options[$index]}}</label>
+                                        <div class="linear-scale-input-container" ng-repeat="option in question.optionsList.options track by $index">
+                                            <label for="{{$index}}">{{question.optionsList.options[$index]}}</label>
+	                                        <input type="radio" class="linear-scale-input" value="{{question.optionsList.options[$index]}}" id="{{$index}}" ng-model="question.answer" ng-required="{{question.isRequired}}" name="{{question._id}}"/>
+	                                        
 	                                    </div>
-                                    </div>
-                                    <div class="options linear-label lowerlimit">
-                                        {{question.optionsList.lowerLimit.label}}
-                                    </div>
-                                    <div class="options linear-label upperlimit">
-                                        {{question.optionsList.upperLimit.label}}
                                     </div>
                                 </div>
                             </div>
                             <div class="animate-switch" ng-switch-when="date">
                                 <div class="options">
                                     <label>
-                                        <input type="date" ng-model="question.optionsList.date" />
+                                        <input type="text" class="survey-date" date-picker="{{question.optionsList}}" ng-model="question.answer" ng-required="{{question.isRequired}}" name="{{question._id}}"/>
                                     </label>
                                 </div>
                             </div>
                             <div class="animate-switch" ng-switch-when="time">
                                 <div class="options">
                                     <label>
-                                        <input type="time" ng-model="question.optionsList.time" />
+                                        <input type="text" class="survey-time" time-picker="{{question.optionsList}}" ng-model="question.answer" ng-required="{{question.isRequired}}" name="{{question._id}}"/>
                                     </label>
                                 </div>
                             </div>
@@ -92,7 +73,7 @@
                                 <div class="question-container">
                                     <div ng-repeat="option in question.optionsList.options track by $index">
                                         <div class="options">
-                                            <input type="radio" value="{{question.optionsList.options[$index]}}" />
+                                            <input type="radio" value="{{question.optionsList.options[$index]}}" ng-model="question.answer" ng-required="{{question.isRequired}}" name="{{question._id}}"/>
                                             <label>{{question.optionsList.options[$index]}}</label>
                                         </div>
                                     </div>

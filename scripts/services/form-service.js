@@ -149,6 +149,10 @@ angular.module('formapp').service('FormService', function($q) {
 				question.optionsList.upperLimit = {};
 				question.questionText = obj.caption;
 				question.position = obj.position;
+				question.optionsList.options = [];
+				for(var i = obj.rangeStart; i <= obj.rangeEnd; i++) {
+					question.optionsList.options.push(i);
+				}
 				question.optionsList.lowerLimit.value = obj.rangeStart;
 				question.optionsList.upperLimit.value = obj.rangeEnd;
 				question.validation = obj.validation;
@@ -206,5 +210,66 @@ angular.module('formapp').service('FormService', function($q) {
 		deffered.resolve(questionData);
 		return deffered.promise;
 	};
+
+	this.constructSurveySubmissionData = function (surveyData) {
+		var surveyAnswer = {};
+		var deffered = $q.defer();
+        surveyAnswer.surveyFormId = surveyData._id;
+        surveyAnswer.multiChoiceElements = [];
+        surveyAnswer.numberElements = [];
+        surveyAnswer.textElements = [];
+        surveyAnswer.dateElements = [];
+        surveyAnswer.timeElements = [];
+        surveyData.questionsArray.forEach(function (question) {
+        	var obj = {};
+            switch (question.selection) {
+				case "shortanswer":
+					obj.refId = question._id;
+					obj.answer = question.answer;
+					surveyAnswer.textElements.push(obj);
+					break;
+				case "multipleChoice":
+					obj.refId = question._id;
+					obj.answer = [question.answer];
+					surveyAnswer.multiChoiceElements.push(obj);
+					break;
+				case "checkboxes":
+					obj.refId = question._id;
+					var answer = "";
+					for(var key in question.answer) {
+						if (question.answer[key] === true) {
+							answer = key;
+						}
+					}
+					obj.answer = [answer];
+					surveyAnswer.multiChoiceElements.push(obj);
+					break;
+				case "dropboxes":
+					obj.refId = question._id;
+					obj.answer = [question.answer];
+					surveyAnswer.multiChoiceElements.push(obj);
+					break;
+				case "linearScale":
+					obj.refId = question._id;
+					obj.answer = question.answer;
+					surveyAnswer.numberElements.push(obj);
+					break;
+		        case "date":
+					obj.refId = question._id;
+					obj.answer = question.answer;
+					surveyAnswer.dateElements.push(obj);
+					break;
+				case "time":
+					var timeStartrange = question.answer.split(':')[0] * 60;
+					timeStartrange = timeStartrange + Number(question.answer.split(':')[1]);
+					obj.refId = question._id;
+					obj.answer = question.timeStartrange;
+					surveyAnswer.timeElements.push(obj);
+					break;
+			}
+        });
+        deffered.resolve(surveyAnswer);
+        return deffered.promise;
+	}
 
 });
