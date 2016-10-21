@@ -225,12 +225,12 @@ angular.module('formapp').service('FormService', function($q) {
             switch (question.selection) {
 				case "shortanswer":
 					obj.refId = question._id;
-					obj.answer = question.answer;
+					obj.answser = question.answer;
 					surveyAnswer.textElements.push(obj);
 					break;
 				case "multipleChoice":
 					obj.refId = question._id;
-					obj.answer = [question.answer];
+					obj.answser = [question.answer];
 					surveyAnswer.multiChoiceElements.push(obj);
 					break;
 				case "checkboxes":
@@ -241,29 +241,30 @@ angular.module('formapp').service('FormService', function($q) {
 							answer = key;
 						}
 					}
-					obj.answer = [answer];
+					obj.answser = [answer];
 					surveyAnswer.multiChoiceElements.push(obj);
 					break;
 				case "dropboxes":
 					obj.refId = question._id;
-					obj.answer = [question.answer];
+					obj.answser = [question.answer];
 					surveyAnswer.multiChoiceElements.push(obj);
 					break;
 				case "linearScale":
 					obj.refId = question._id;
-					obj.answer = question.answer;
+					obj.answser = question.answer;
 					surveyAnswer.numberElements.push(obj);
 					break;
 		        case "date":
 					obj.refId = question._id;
-					obj.answer = question.answer;
+					var dateAnswer = new Date(question.answer).toISOString().split('T')[0].split('-').reverse().join('-');
+					obj.answser = dateAnswer;
 					surveyAnswer.dateElements.push(obj);
 					break;
 				case "time":
 					var timeStartrange = question.answer.split(':')[0] * 60;
 					timeStartrange = timeStartrange + Number(question.answer.split(':')[1]);
 					obj.refId = question._id;
-					obj.answer = question.timeStartrange;
+					obj.answser = timeStartrange;
 					surveyAnswer.timeElements.push(obj);
 					break;
 			}
