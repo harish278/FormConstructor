@@ -235,10 +235,10 @@ angular.module('formapp').service('FormService', function($q) {
 					break;
 				case "checkboxes":
 					obj.refId = question._id;
-					var answer = "";
+					var answer = [];
 					for(var key in question.answer) {
 						if (question.answer[key] === true) {
-							answer = key;
+							answer.push(key);
 						}
 					}
 					obj.answser = [answer];

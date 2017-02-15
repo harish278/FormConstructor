@@ -1,8 +1,8 @@
 'use strict';
 angular.module('formapp').controller("MainController", ['$scope', '$http', '$location', function ($scope, $http, $location) {
-	$scope.formsList = [];
+	$scope.formsList = [{"title": "Sample fom", "_id": "10"}];
 	var URL = "http://52.74.76.164:8001/api/v1/survey?limit=50";
-	$http.get(URL).then(function successCallback(response) {
+	/*$http.get(URL).then(function successCallback(response) {
         // this callback will be called asynchronously
         // when the response is available
         $scope.formsList = response.data.data.surveyForms;
@@ -11,7 +11,7 @@ angular.module('formapp').controller("MainController", ['$scope', '$http', '$loc
         // or server returns response with an error status.
         console.log("failure ", response);
         alert(response.status + '\n' + response.data.message);
-    });
+    });*/
 
     $scope.takeSurvey = function (surveyId) {
     	var surveyURL = "/survey/" + surveyId;

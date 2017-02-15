@@ -1,14 +1,11 @@
 <div id="mainpage">
-	<div class="wrapper" ng-if="formsList.length < 1">
-    	<p>No surveys to take yet</p>
+	<div class="wrapper">
+    	<div class="forms-list-element" id="new-survey" ng-click="addNewSurvey()">
+            Add a new survey
+        </div>
     </div>
     <div class="wrapper" ng-if="formsList.length > 0">
     	<ol>
-            <li class="new-survey">
-                <div class="forms-list-element" id="new-survey" ng-click="addNewSurvey()">
-                    Add a new survey
-                </div>
-            </li>
             <div class="forms-list-container" ng-repeat="form in formsList">
         		<li>
                     <div class="forms-list-element">

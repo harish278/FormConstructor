@@ -1,0 +1,99 @@
+{
+  "title": "Sample form",
+  "isShareAggregatedResult": true,
+  "_id": 100,
+  "multiChoiceElements": [
+    {
+      "caption": "When does financial year end?",
+      "position": 1,
+      "options": [
+        "Jan 31",
+        "Dec 31",
+        "March 31",
+        "April 31"
+      ],
+      "_id": 1,
+      "validation": "string",
+      "isRequired": true,
+      "isMultiSelect": false,
+      "typeOfElement": "RADIO"
+    },
+    {
+      "caption": "What do you like to do when you are free? (can choose multiple options)",
+      "position": 2,
+      "options": [
+        "Play games",
+        "Read books",
+        "Watch something on TV",
+        "Facebook",
+        "Sleep"
+      ],
+      "_id": 2,
+      "validation": "string",
+      "isRequired": true,
+      "isMultiSelect": false,
+      "typeOfElement": "CHECK_BOX"
+    },
+    {
+      "caption": "What is your gender?",
+      "position": 3,
+      "options": [
+        "Male",
+        "Female"
+      ],
+      "_id": 3,
+      "validation": "string",
+      "isRequired": true,
+      "isMultiSelect": false,
+      "typeOfElement": "DROP_DOWN"
+    }
+  ],
+  "numberElements": [
+    {
+      "caption": "How much do you like your company?",
+      "_id": 4,
+      "position": 4,
+      "rangeStart": 1,
+      "rangeEnd": 10,
+      "isRequired": true
+    }
+  ],
+  "textElements": [
+    {
+      "caption": "What do you think about this planner?",
+      "_id": 7,
+      "position": 7,
+      "minimumCharLimit": 10,
+      "maximumCharLimit": 50,
+      "isRequired": true
+    },
+    {
+      "caption": "Suggestions to improve this planner",
+      "_id": 8,
+      "position": 8,
+      "minimumCharLimit": 20,
+      "maximumCharLimit": 500,
+      "isRequired": true
+    }
+  ],
+  "dateElements": [
+    {
+      "caption": "Select some date for party",
+      "_id": 5,
+      "position": 5,
+      "dateRangeStart": "14-02-2017",
+      "dateRangeEnd": "30-03-2017",
+      "isRequired": true
+    }
+  ],
+  "timeElements": [
+    {
+      "caption": "Optimal Time to begin party",
+      "_id": 6,
+      "position": 6,
+      "rangeStart": 540,
+      "rangeEnd": 1080,
+      "isRequired": true
+    }
+  ]
+}

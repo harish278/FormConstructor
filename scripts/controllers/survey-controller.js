@@ -1,11 +1,13 @@
 'use strict';
 angular.module('formapp').controller("SurveyController", ['$scope', '$routeParams', '$http', '$location', 'FormService', function ($scope, $routeParams, $http, $location, FormService) {
 	$scope.surveyData = null;
-	var URL = "http://52.74.76.164:8001/api/v1/survey?surveyFormId=" + $routeParams.id;
+	// var URL = "http://52.74.76.164:8001/api/v1/survey?surveyFormId=" + $routeParams.id;
+    var URL = "../../data/sample-form.json";
 	$http.get(URL).then(function successCallback(response) {
+        console.log(response);
         // this callback will be called asynchronously
         // when the response is available
-        FormService.constructSurveyData(response.data.data.surveyForms[0]).then ( function (surveyData) {
+        FormService.constructSurveyData(response.data).then ( function (surveyData) {
         	$scope.surveyData = surveyData;
             $scope.surveyData.questionsArray.sort(function (a, b) {
                 return a.position - b.position;
@@ -20,6 +22,7 @@ angular.module('formapp').controller("SurveyController", ['$scope', '$routeParam
     });
 
     $scope.surveySubmit = function () {
+        console.log("survey data before refining", $scope.surveyData);
         FormService.constructSurveySubmissionData($scope.surveyData).then(function (surveyAnswer) {
             console.log("survey answer", surveyAnswer);
             /*var surveyAnswerData = {
@@ -31,7 +34,7 @@ angular.module('formapp').controller("SurveyController", ['$scope', '$routeParam
                 "timeElements": surveyAnswer.timeElements
             };
             console.log(surveyAnswerData);*/
-            var surveySubmitURL = "http://52.74.76.164:8001/api/v1/survey/submission";
+            /*var surveySubmitURL = "http://52.74.76.164:8001/api/v1/survey/submission";
             $http.post(surveySubmitURL, surveyAnswer).then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
@@ -43,7 +46,7 @@ angular.module('formapp').controller("SurveyController", ['$scope', '$routeParam
                 // or server returns response with an error status.
                 console.log("failure ", response);
                 alert(response.status + '\n' + response.data.message);
-            });
+            });*/
         });
     }
 }]);
